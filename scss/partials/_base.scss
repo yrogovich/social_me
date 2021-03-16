@@ -1,0 +1,58 @@
+// Base
+html {
+    font-size: 62.5%;
+    @media (max-width: $lg) {
+        font-size: 50%;
+    }
+}
+
+body {
+    @include primaryFont;
+    font-size: var(--body-font-size);
+    color: var(--font-color);
+    background-color: #ccc;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: auto;
+
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.container-full {
+    max-width: var(--container-full-width);
+    margin: auto;
+
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
+::selection {
+    background-color: var(--selection);
+}
+
+img {
+    image-rendering: optimizeQuality;
+    image-rendering: -webkit-optimize-contrast;
+}
+strong {
+    font-weight: 900;
+}
+
+// Tags
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5 {
+    font-weight: bold;
+}
+
+// H 
+h1, .h1 {
+    font-size: 2.7vw;
+    @media (max-width: $sm) {
+        font-size: 5.7vw;
+    }
+}
