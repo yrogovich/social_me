@@ -115,15 +115,13 @@ $post_slug = $post->post_name;
             </form>
         </main>
 
-        <!-- <img data-src="<?bloginfo('template_url')?>/img/open-form-respect-1.png" alt="inst" class="decor-icon top-icon lazy"> -->
-        <img data-src="<?bloginfo('template_url')?>/img/open-form-lock.png" alt="inst" class="decor-icon bottom-icon lazy">
-
+            <img data-src="<?bloginfo('template_url')?>/img/open-form-lock.png" alt="inst" class="decor-icon bottom-icon lazy">
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal micromodal-slide" id="question-modal" aria-hidden="true">
+<div class="modal micromodal-slide" id="request-contacts-modal" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
 
         <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
@@ -137,7 +135,7 @@ $post_slug = $post->post_name;
             <div class="h3">Leave your details to provide specific information!</div>     
 
             <form>
-                <input type="hidden" name="form_name" value="Modal question">
+                <input type="hidden" name="form_name" value="Request client contacts">
                 <input type="hidden" name="form_url" value="<?bloginfo('url')?>">
 
                 <div class="input-wrapper">
@@ -150,8 +148,7 @@ $post_slug = $post->post_name;
             </form>
         </main>
 
-        <!-- <img data-src="<?bloginfo('template_url')?>/img/open-form-respect-1.png" alt="inst" class="decor-icon top-icon lazy"> -->
-        <img data-src="<?bloginfo('template_url')?>/img/open-form-lock.png" alt="inst" class="decor-icon bottom-icon lazy">
+            <img data-src="<?bloginfo('template_url')?>/img/open-form-lock.png" alt="inst" class="decor-icon bottom-icon lazy">
         </div>
     </div>
 </div>

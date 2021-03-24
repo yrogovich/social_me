@@ -226,6 +226,7 @@ h3, .h3 {
 
 .modal__container .btn {
   width: 23rem;
+  margin-top: 1rem;
 }
 
 .modal__container .decor-icon {
@@ -2153,6 +2154,7 @@ header h1, header .h1 {
 
 #open-form .card-form {
   max-width: 47rem;
+  margin: auto;
 }
 
 #open-form .card-form form {

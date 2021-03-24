@@ -247,8 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     toggleActions: "play pause play pause",
                 }, 
                 opacity: 0,
-                scale: 0,
-                duration: 1,
+                scale: .4,
+                duration: .8,
                 ease: "power3.out" 
             });
         })

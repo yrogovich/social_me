@@ -1161,6 +1161,7 @@ header {
 #open-form {
     .card-form {
         max-width: 47rem;
+        margin: auto;
         form {
             max-width: 34rem;
             margin: auto;
@@ -1575,8 +1576,7 @@ $alert-color: #fff;
   }
 }
 
-.article {
-    
+.article { 
     .foot {
         margin-top: 5rem;
         text-align: center;
