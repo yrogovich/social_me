@@ -4,11 +4,11 @@ $email = 'work-biznesrost24@yandex.by';
 // Arrays
 $personalFields = [
     'name' => [
-        'text' => 'Имя',
+        'text' => 'Name',
         'name' => 'name'
     ],
     'phone' => [
-        'text' => 'Телефон',
+        'text' => 'Telephone',
         'name' => 'phone'
     ],
     'email' => [
@@ -16,23 +16,23 @@ $personalFields = [
         'name' => 'email'
     ],
     'message' => [
-        'text' => 'Сообщение',
+        'text' => 'Message',
         'name' => 'message'
     ]
 ];
 $additionalFields = [
     'form_name' => [
-        'text' => 'Название формы',
+        'text' => 'Form name',
         'name' => 'form_name'
     ],
     'form_url' => [
-        'text' => 'Страница с которой пришла форма',
+        'text' => 'The page from which the form came',
         'name' => 'form_url'
     ]
 ];
 
 // Print message body
-$message .= "Личная информация: \n\n";
+$message .= "Personal Information: \n\n";
 foreach ($personalFields as $field) {
     $fieldText = $field['text'];
     $fieldValue = strip_tags($_POST[$field['name']]);
@@ -41,7 +41,7 @@ foreach ($personalFields as $field) {
         $message .= $fieldText . ': ' . $fieldValue."\n";
     }
 }
-$message .= "Дополнительная информация: \n\n";
+$message .= "\n\nAdditional information: \n\n";
 foreach ($additionalFields as $field) {
     $fieldText = $field['text'];
     $fieldValue = strip_tags($_POST[$field['name']]);
@@ -53,14 +53,12 @@ foreach ($additionalFields as $field) {
 
 // Headers
 $to = $email;
-$subject = 'Заявка с сайта '.$_SERVER['SERVER_NAME'] . ' ' . $_POST['form'];
-$headers = 'From: '. $email . "\r\n";
+$subject = 'Request from '.$_SERVER['SERVER_NAME'] . ' ' . $_POST['form_name'];
+$headers = 'From: mail@'. $_SERVER['SERVER_NAME'] . "\r\n";
 $headers .='Reply-To: ' . $email . "\r\n";
 
 // Sending
-if(isset($_POST['name']) && $_POST['name'] !== '') {
-    $result = mail($to, $subject, $message, $headers); 
-}
+$result = mail($to, $subject, $message, $headers); 
 
 // For callback
 if($result) {

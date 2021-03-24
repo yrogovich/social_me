@@ -1,7 +1,7 @@
 <div class="navbar">
 	<div class="container-full">
 		<div class="navbar-row">
-			<a href="<?get_home_url()?>" class="navbar-logo">
+			<a href="<?=get_home_url()?>" class="navbar-logo">
 				<img src="<?bloginfo("template_url")?>/img/logo.svg" alt="Social me" class="logo-img">
 				
 				<div class="logo-text">
@@ -26,7 +26,7 @@
 						<a class="phone" href="tel:<?=PHONE?>"><?=PHONE?></a>
 					</div>
 				</div>
-				<a href="#" class="btn btn-login">
+				<a href="https://antiban.pro/ru/signin/" target="_blank" class="btn btn-login">
 					<img class="icon" src="<?bloginfo("template_url")?>/img/icons/avatar.svg" alt="avatar">
 					<span>Login</span>
 				</a>

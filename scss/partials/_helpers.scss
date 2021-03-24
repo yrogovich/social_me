@@ -4,6 +4,9 @@
 .bold {
     font-weight: bold;
 }
+.normal {
+    font-weight: normal;
+}
 .block {
     display: block;
 }
@@ -17,6 +20,9 @@
     display: grid;       
 }
 .small {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     letter-spacing: normal;
+}
+.overflow-hidden {
+    overflow: hidden!important;
 }

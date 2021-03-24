@@ -1,6 +1,8 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", () => {
+    const templateUrl = wp.templateUrl;
+
     // Vanilla-lazyload init
     try {
         let lazyLoadInstance = new LazyLoad();
@@ -8,104 +10,78 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`Vanilla-lazyload plugin error: ${error}`);
     }
 
-    // Menu open
+    // MicroModal init
     try {
-        const menuOpen = gsap.timeline({ paused: true })
-            .to(".mobile-menu",{
-                display: 'block'
-            }, "<")
-            .to(".menu-bar",{
-                scaleX: 0
-            }, "<")
-            .to(".menu-bar.mb1", {
-                transformOrigin: "left",
-                rotate: 45,
-                duration: 0
-            })
-            .to(".menu-bar.mb2", {
-                transformOrigin: "25%",
-                rotate: 315,
-                duration: 0
-            })
-            .to(".menu-bg__inner", {
-                scaleX: 1,
-                stagger: {
-                amount: 0.5,
-                from: "start",
-                ease: "sine.inout"
-                }
-            })
-            .to(".menu-bg__inner2",{
-                scaleX: 1,
-                stagger: {
-                    amount: 0.5,
-                    from: "end",
-                    ease: "sine.inout"
-                }
-            }, "<")
-            .to(".menu-bar", {
-                scaleX: 1,          
-                backgroundColor: "#fff"
-            })
-            .from(".mobile-menu-nav li", {
-                y: 50,
-                opacity: 0,
-                ease: "power3.inout",
-                stagger: {
-                    amount: 0.3,
-                    from: "end"
-                }
-            }, "-=.8")
-            .from(".mobile-menu .support", .5, {
-                opacity: 0,
-                ease: "power3.inout",
-            }, "-=.2")
-
-
-        document.querySelector('#menu-btn').addEventListener('click', function() {
-            if (this.classList.contains("menu-open")) {
-                this.classList.remove("menu-open");               
-                menuOpen.reverse();           
-            } else {
-                this.classList.add("menu-open");           
-                menuOpen.play();
-            }
-        });
-          
+        MicroModal.init();
     } catch (error) {
-        console.log('Menu error:', error);
+        console.log(`MicroModal plugin error: ${error}`);
     }
+
+    // Swiper
+    try {
+        const casesSlider = new Swiper('.cases-slider', {
+            effect: 'fade',
+            speed: 800,
+            navigation: {
+                nextEl: '.cases-slider .swiper-button-next',
+                prevEl: '.cases-slider .swiper-button-prev',
+            },
+            pagination: {
+                el: '.cases-slider .swiper-pagination',
+            },
+        });
+    } catch (error) {
+        console.log(`Swiper plugin error: ${error}`);
+    }
+
+    // Cookie check script
+    let cookieAlert = document.querySelector(".cookie-alert");
+    let cookieAlertButton = document.querySelector(".cookie-alert button");
+
+    if (!localStorage.getItem('cookie')) {
+    setTimeout(() => cookieAlert.classList.add('not-accepted'), 3000);
+    } 
+
+    cookieAlertButton.addEventListener('click', () => {
+    localStorage.setItem('cookie', 'accepted');
+    cookieAlert.classList.remove('not-accepted');
+    });
 
     // Form handler
     let forms = document.querySelectorAll('form');
-    let url = `${window.location.protocol}//${window.location.host}/send.php`;
+    let url = `${templateUrl}/send.php`;
 
     forms.forEach((form) => {
         form.addEventListener('submit', function(event) {
             event.preventDefault ? event.preventDefault() : event.returnValue = false;
+            
+            let modalName = this.closest('.modal') ? this.closest('.modal').id  : '';
 
-            console.log("Отправка запроса");
+            console.log('Form send request');
             let req = new XMLHttpRequest();
             req.open('POST', url, true);
             req.onload = function() {
                 if (req.status >= 200 && req.status < 400) {
                     json = JSON.parse(this.response);
-
+                    
                     if (json.send) {
                         // Если сообщение отправлено
-                        console.log("Сообщение отправлено");
+                        MicroModal.close(modalName);
+                        swal("Form sent!", "We will contact you as soon as possible!", "success");
                     } else {
                         // Если произошла ошибка
-                        console.log("Ошибка. Сообщение не отправлено");
+                        MicroModal.close(modalName);
+                        swal("The form has not been sent!", "Mistake. Message not sent", "error");
                     }
-                    // Если не удалось связаться с php файлом
-                } else {
-                    console.log("Ошибка сервера. Номер: " + req.status);
+                // Если не удалось связаться с php файлом
+                } else { 
+                    MicroModal.close(modalName);
+                    swal("The form has not been sent!", "Server error: " + req.status, "error");
                 }
-            };
-
+            }; 
+            
             // Если не удалось отправить запрос. Стоит блок на хостинге
-            req.onerror = () => console.log("Ошибка отправки запроса");
+            req.onerror = () => swal("The form has not been sent!", "Error sending request");
             req.send(new FormData(event.target));
         });
     });
